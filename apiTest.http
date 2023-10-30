@@ -1,0 +1,36 @@
+POST http://localhost:8080/api/reservations/addReservation
+Content-Type: application/json
+
+{
+  "startTime":"2023-10-27 18:00",
+  "endTime":"2023-10-27 20:00",
+  "salleId": 1,
+  "reunionId":1
+}
+###
+
+GET http://localhost:8080/api/salles/recommend
+Content-Type: application/json
+
+{
+  "type": "VC",
+  "guestNum": 3,
+  "time": "2023-10-27 18:00"
+}
+###
+
+POST http://localhost:8080/api/salles/addSalle
+Content-Type: application/json
+
+{
+  "name": "E4001",
+  "maxCapacity": 23,
+  "hasPieuvre": "false",
+  "hasScreen": "false",
+  "hasWebcam": "false",
+  "hasWhiteboard": "false"
+}
+
+###
+
+
