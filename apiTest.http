@@ -1,3 +1,4 @@
+### Pour reserver une salle en specifiant son id et l'id de la reunion
 POST http://localhost:8080/api/reservations/addReservation
 Content-Type: application/json
 
@@ -7,8 +8,7 @@ Content-Type: application/json
   "salleId": 1,
   "reunionId":1
 }
-###
-
+### Chercher des recommendations de salle par passant une reunion
 GET http://localhost:8080/api/salles/recommend
 Content-Type: application/json
 
@@ -17,20 +17,36 @@ Content-Type: application/json
   "guestNum": 3,
   "time": "2023-10-27 18:00"
 }
-###
 
+### Ajouter une salle
 POST http://localhost:8080/api/salles/addSalle
 Content-Type: application/json
 
 {
   "name": "E4001",
   "maxCapacity": 23,
-  "hasPieuvre": "false",
-  "hasScreen": "false",
-  "hasWebcam": "false",
-  "hasWhiteboard": "false"
+  "hasPieuvre": false,
+  "hasScreen": false,
+  "hasWebcam": false,
+  "hasWhiteboard": true
 }
 
-###
+### Ajouter une reunion (weekend)
+POST http://localhost:8080/api/reunions/addReunion
+Content-Type: application/json
 
+{
+  "type": "VC",
+  "guestsNum": 3,
+  "time": "2023-11-04 18:00"
+}
 
+### Ajouter une reunion (weekday)
+POST http://localhost:8080/api/reunions/addReunion
+Content-Type: application/json
+
+{
+  "type": "VC",
+  "guestsNum": 3,
+  "time": "2023-11-03 18:00"
+}

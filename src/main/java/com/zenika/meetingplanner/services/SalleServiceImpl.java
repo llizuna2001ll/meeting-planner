@@ -8,9 +8,11 @@ import com.zenika.meetingplanner.entities.Salle;
 import com.zenika.meetingplanner.enums.ReunionType;
 import com.zenika.meetingplanner.exceptions.InvalidReservationTimeException;
 import com.zenika.meetingplanner.exceptions.NoRoomsAvailableException;
+import com.zenika.meetingplanner.exceptions.WeekendMeetingException;
 import com.zenika.meetingplanner.repositories.SalleRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -32,43 +34,38 @@ public class SalleServiceImpl implements SalleService {
 
     @Override
     public List<SalleResponse> recommendSallesByReunion(ReunionRequest reunionRequest) {
-        int roomCapacity = reunionRequest.getGuestsNum() * 100/70;
+        int roomCapacity = reunionRequest.getGuestsNum() * 100 / 70;
         LocalDateTime time = LocalDateTime.parse(reunionRequest.getTime(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
         ReunionType type = reunionRequest.getType();
         List<SalleResponse> salleResponses = new ArrayList<>();
-
         if (time.getHour() >= 8 && time.getHour() <= 20 && time.getMinute() == 0) {
             if (type == ReunionType.RC) {
                 for (Salle salle : findSallesForRC(roomCapacity, time)) {
                     salleResponses.add(SalleResponse.toSalleResponse(salle));
                 }
-            }
-            else if (type == ReunionType.RS) {
+            } else if (type == ReunionType.RS) {
                 for (Salle salle : findSallesForRS(roomCapacity, time)) {
                     salleResponses.add(SalleResponse.toSalleResponse(salle));
                 }
-            }
-            else if (type == ReunionType.VC) {
+            } else if (type == ReunionType.VC) {
                 for (Salle salle : findSallesForVC(roomCapacity, time)) {
                     salleResponses.add(SalleResponse.toSalleResponse(salle));
                 }
-            }
-            else if (type == ReunionType.SPEC) {
+            } else if (type == ReunionType.SPEC) {
                 for (Salle salle : findSallesForSPEC(roomCapacity, time)) {
                     salleResponses.add(SalleResponse.toSalleResponse(salle));
                 }
             }
-        }
-        else {
-            throw new InvalidReservationTimeException("Rooms should be reserved between 8h00 and 20h00 only");
-        }
+        } else
+            throw new InvalidReservationTimeException("Salles should be reserved between 8h00 and 20h00 only");
+
         return salleResponses;
     }
 
 
     @Override
     public SalleResponse addSalle(SalleRequest salleRequest) {
-        if(salleRepository.existsByName(salleRequest.getName()))
+        if (salleRepository.existsByName(salleRequest.getName()))
             throw new NameAlreadyExists("Name already exists");
         return SalleResponse.toSalleResponse(salleRepository.save(Salle.toSalle(salleRequest)));
     }

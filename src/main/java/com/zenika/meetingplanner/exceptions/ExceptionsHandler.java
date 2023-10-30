@@ -46,4 +46,12 @@ public class ExceptionsHandler {
         errorMap.put("error", ex.getMessage());
         return errorMap;
     }
+
+    @ResponseStatus(HttpStatus.CONFLICT)
+    @ExceptionHandler(WeekendMeetingException.class)
+    public Map<String, String> handleWeekendMeetingException(WeekendMeetingException ex) {
+        Map<String, String> errorMap = new HashMap<>();
+        errorMap.put("error", ex.getMessage());
+        return errorMap;
+    }
 }

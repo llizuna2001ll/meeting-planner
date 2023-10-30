@@ -15,7 +15,6 @@
     <li><strong>Réunions Simples (RS) :</strong> Requiert une salle d'une capacité minimale de 3 places.</li>
     <li><strong>Réunions Couplées (RC) :</strong> Nécessitent un tableau, un écran et une pieuvre, adaptées pour les réunions hybrides en télétravail et sur site.</li>
 </ul>
-
 <h2>Database</h2>
 <p>La base de données utilisée dans ce projet est une base de données H2 en mémoire. Pour y accéder après avoir exécuté l'application, veuillez suivre ce lien : <a>http://localhost:8080/h2-console </a>et changer l'URL comme l'image ci-dessous</p>
 <img src="images/h2.png" width="400px"/>

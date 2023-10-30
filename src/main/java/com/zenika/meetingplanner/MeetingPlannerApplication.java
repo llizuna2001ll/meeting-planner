@@ -63,6 +63,7 @@ public class MeetingPlannerApplication {
                     .salleId(9L)
                     .reunionId(1L)
                     .build();
+            reservationRepository.save(reservation);
 
         };
 
